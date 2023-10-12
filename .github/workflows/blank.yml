@@ -3,10 +3,7 @@ name: Build Docker Image
 on:
   push:
     tags:
-      - 'release-*'  # Puedes cambiar esto según tus ramas
-  release:
-    types:
-      - created
+      - '*'
 
 jobs:
   build:
@@ -23,12 +20,12 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build Docker Image
-      run: | 
-        docker build -t app-rcastro-nginx:latest .
-        echo "RELEASE_NAME=${{ github.event_name == 'release' && github.event.action == 'created' && startsWith(github.ref, 'refs/tags/') && env.RELEASE_NAME || 'latest' }}"
-        docker tag app-rcastro-nginx:latest rcastro95/app-rcastro-nginx:${{ env.TAG_NAME }}
+      run: |
+        docker build -t rcastro95/app-rcastro-nginx:latest .
+        echo "RELEASE_NAME=${{ env.RELEASE_NAME || 'latest' }}"
+        docker tag rcastro95/app-rcastro-nginx:latest rcastro95/app-rcastro-nginx:${{ env.RELEASE_NAME || 'latest' }}
 
     - name: Push Docker Image
       run: |
-        docker tag app-rcastro-nginx:latest rcastro95/app-rcastro-nginx:latest
-        docker push rcastro95/app-rcastro-nginx:${{ env.TAG_NAME }}
+        docker push rcastro95/app-rcastro-nginx:latest
+        docker push rcastro95/app-rcastro-nginx:${{ env.RELEASE_NAME || 'latest' }}
