@@ -21,7 +21,7 @@ jobs:
 
     - name: Build Docker Image
       run: |
-        docker build -t rcastro95/app-rcastro-nginx:latest .
+        docker build -t rcastro95/app-rcastro-nginx:${{ env.RELEASE_NAME }} .
         echo "RELEASE_NAME=${{ env.RELEASE_NAME || 'latest' }}"
         docker tag rcastro95/app-rcastro-nginx:latest rcastro95/app-rcastro-nginx:${{ env.RELEASE_NAME || 'latest' }}
 
