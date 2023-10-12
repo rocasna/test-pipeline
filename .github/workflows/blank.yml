@@ -2,8 +2,8 @@ name: Build Docker Image
 
 on:
   push:
-    branches:
-      - master  # Puedes cambiar esto según tus ramas
+    tags:
+      - 'release-*'  # Puedes cambiar esto según tus ramas
   release:
     types:
       - created
