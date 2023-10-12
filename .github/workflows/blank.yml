@@ -25,7 +25,7 @@ jobs:
     - name: Build Docker Image
       run: |
         docker build -t rcastro95/app-rcastro-nginx:latest .
-        docker tag rcastro95/app-rcastro-nginx:latest your-docker-username/app-rcastro-nginx:${{ env.RELEASE_NAME }}
+        docker tag rcastro95/app-rcastro-nginx:latest rcastro95/app-rcastro-nginx:${{ env.RELEASE_NAME }}
         docker images
 
     - name: Push Docker Image
